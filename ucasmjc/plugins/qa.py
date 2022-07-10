@@ -1,7 +1,7 @@
 import re
 from textwrap import indent
 from nonebot import on_command, on_fullmatch, on_regex, on_startswith
-from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,Message,PrivateMessageEvent
+from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,Message,PrivateMessageEvent,GROUP_ADMIN
 import json
 from nonebot.params import State, ArgPlainText, Arg, CommandArg
 from typing import Union
@@ -117,12 +117,13 @@ async def search(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent])
             text+="\n"
         i+=1
     await qa_search.finish(text)
-qa_delete=on_regex("删除Q\d*\s?A\d*",priority=5)
+qa_delete=on_regex("删除Q\d*\s?A\d*",priority=5,permission=GROUP_ADMIN)
 @qa_delete.handle()
-async def delete(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
+async def delete(event:GroupMessageEvent):
     usrqq=event.get_user_id()
+    _, group_id, user_id = event.get_session_id().split("_")
     list=["2496767825","1532691970","676759737"]
-    if usrqq not in list:
+    if (usrqq not in list)&(group_id!="712646893"):
         return
     args=str(event.get_message())
     arg=re.search("删除Q\d*",args)
@@ -138,5 +139,5 @@ async def delete(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent])
             json.dump(load_dict,f)    
         await qa_delete.finish("Q"+q_index+"中的第"+a_index+"条回答已被删除")
     else:
-        await qa_delete.finish("未找到该回答")
+            await qa_delete.finish("未找到该回答")
 

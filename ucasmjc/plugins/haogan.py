@@ -39,8 +39,8 @@ async def get_data(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
         return
     if data < 0 :
         impression="讨厌，请离我远一些（嫌弃的眼神）"
-    elif data < 30:
-        impression="陌生，我和你很熟吗？"
+    elif data < 45:
+        impression="陌生，我和你很熟吗？不要和我说话了"
     elif data < 70:
         impression="谢谢你，你是一个好人（真诚的眼神）"
     elif data<90:

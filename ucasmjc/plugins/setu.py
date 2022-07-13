@@ -9,8 +9,7 @@ from ucasmjc.plugins.util import init
 from ucasmjc.plugins.withdraw import add_withdraw_job
 import asyncio
 from nonebot.log import logger
-setu = on_fullmatch("美少女", priority=5)
-@setu.handle()
+
 async def setu_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     try:
         _, group_id, user_id = event.get_session_id().split("_")

@@ -32,11 +32,11 @@ async def http1_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]
     await http1.finish(address1)
 http2= on_fullmatch('本科教育网', priority=5)
 @http2.handle()
-async def http2_use(bot: Bot, event: GroupMessageEvent):
+async def http2_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     address2 = 'https://bkjy.ucas.ac.cn/'
     await http2.finish(address2)
 http3=on_fullmatch("深澜软件", priority=5)
 @http3.handle()
-async def http3_use(bot: Bot, event: GroupMessageEvent):
+async def http3_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     address3 = 'http://124.16.81.61/'
     await http3.finish(address3)

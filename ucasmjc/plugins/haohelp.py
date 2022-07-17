@@ -15,6 +15,6 @@ async def qahelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent
 culturehelp = on_fullmatch("果壳文化", priority=5)
 @culturehelp.handle()
 async def culturehelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
-    daily_send = '果壳的校园虽小，活动却不少，直接发送下列活动的名字获得相应视频，领略果壳的校园文化吧！\n草地音乐节\n军训vlog\n迎新晚会\n音乐之夜\n元旦晚会\n社团文化节\nFREE舞蹈节\n美式霸凌\n果壳迷踪\n果壳良品设计集'
+    daily_send = '果壳的校园虽小，活动却不少，直接发送下列活动的名字获得相应视频，领略果壳的校园文化吧！\n草地音乐节\n军训vlog\n迎新晚会\n音乐之夜\n元旦晚会\n社团文化节\nFREE舞蹈节\n（下面是私货）\n美式霸凌\n果壳迷踪\n果壳良品设计集'
     await culturehelp.finish(daily_send)
    

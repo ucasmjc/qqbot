@@ -56,6 +56,8 @@ async def fuqian_use(bot: Bot, event: PrivateMessageEvent):
         if usrqq in load_dict :
             if load_dict[usrqq]["mark"]==1:
                 if load_dict[usrqq]["data"]>50:
+
+
                     load_dict[usrqq]["data"]=100
                 else:
                     load_dict[usrqq]["data"]+=50 
@@ -70,8 +72,6 @@ async def fuqian_use(bot: Bot, event: PrivateMessageEvent):
             load_dict[usrqq]["mark"] = 1
     with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
         json.dump(load_dict,f)
-    if(load_dict[usrqq]["data"]<0):
-        return
     url = 'https://api.fanlisky.cn/api/qr-fortune/get/'+str(usrqq)
     res = requests.get(url)
     content_a = res.json()['data']['fortuneSummary']

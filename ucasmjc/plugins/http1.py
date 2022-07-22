@@ -40,3 +40,8 @@ http3=on_fullmatch("深澜软件", priority=5)
 async def http3_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     address3 = 'http://124.16.81.61/'
     await http3.finish(address3)
+qa1= on_fullmatch('提问的智慧', priority=5)
+@qa1.handle()
+async def http2_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
+    address2 = '提问的智慧\nhttps://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md\n别像弱智一样提问\nhttps://github.com/tangx/Stop-Ask-Questions-The-Stupid-Ways/blob/master/README.md'
+    await qa1.finish(address2)

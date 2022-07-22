@@ -7,7 +7,7 @@ from nonebot.params import State, ArgPlainText, Arg, CommandArg
 from typing import Union
 q=on_command("Q ",priority=5)
 @q.handle()
-async def get_Q(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent],args: Message = CommandArg()):
+async def get_Q(bot: Bot, event:GroupMessageEvent,args: Message = CommandArg()):
     args = args.extract_plain_text()
     if not args:
         return

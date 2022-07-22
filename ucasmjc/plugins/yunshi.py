@@ -22,10 +22,8 @@ async def fuqian_use(bot: Bot, event: GroupMessageEvent):
                 load_dict[usrqq]["mark"]=0
         else:
             load_dict[usrqq]={}
-            load_dict[usrqq]["poke"]={"index":0,"id":0}
-            load_dict[usrqq]["setu1"]={"index":0,"id":0}
-            load_dict[usrqq]["setu2"]={"index":0,"id":0}
-            load_dict[usrqq]["haogan"]={"index":0,"id":0}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
             load_dict[usrqq]["data"] = 60
             load_dict[usrqq]["mark"] = 1
     with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
@@ -51,27 +49,6 @@ fuqian1 = on_fullmatch("运势",  priority=5)
 async def fuqian_use(bot: Bot, event: PrivateMessageEvent):
     requests.adapters.DEFAULT_RETRIES = 10
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-
-
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["poke"]={"index":0,"id":0}
-            load_dict[usrqq]["setu1"]={"index":0,"id":0}
-            load_dict[usrqq]["setu2"]={"index":0,"id":0}
-            load_dict[usrqq]["haogan"]={"index":0,"id":0}
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
     url = 'https://api.fanlisky.cn/api/qr-fortune/get/'+str(usrqq)
     res = requests.get(url)
     content_a = res.json()['data']['fortuneSummary']

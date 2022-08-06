@@ -1,3 +1,4 @@
+import asyncio
 from nonebot import on_notice
 from nonebot.adapters.onebot.v11 import PokeNotifyEvent
 import random
@@ -50,47 +51,85 @@ poke_ = on_notice(priority=5, block=False)
 async def poke_event(bot: Bot,event: PokeNotifyEvent):
     if event.self_id == event.target_id:
         usrqq = event.get_user_id()
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-            load_dict = json.load(f)
-        if usrqq in load_dict :
-            load_dict[usrqq]["data"] -= load_dict[usrqq]["poke"]["index"]
-            if load_dict[usrqq]["poke"]["index"]==0:
-                load_dict[usrqq]["poke"]["index"]=20
+        try:
+            _, group_id, user_id = event.get_session_id().split("_")
+            if group_id!="712646893":
+                mark=1
             else:
-                load_dict[usrqq]["poke"]["index"]*=2 
-            load_dict[usrqq]["poke"]["id"]+=1
+                mark=0
+        except:
+            mark=0
+        if (event.get_event_name()=="message.private.friend")|(mark==1):
+            if random.random() < 0.3:
+                rst = ""
+                if random.random() < 0.15:
+                    rst = "气死我了！"
+                await poke_.finish(rst + random.choice(poke__reply), at_sender=True)
+            rand = random.random()
+            if rand < 0.2:
+                voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
+                result = MessageSegment("record",{
+                    "file":"file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1/"+voice})
+                text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
+                text.sort()
+                index = voice.split('.')[0]
+                await poke_.send(result)
+                await poke_.send(text[int(index)-1].split("_")[1])
+            elif rand > 0.7:
+                img = "file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/pa/" + str(random.randint(0,46)) + ".jpg"
+                await poke_.send(MessageSegment("image",{"file" : img}))
+            else :
+                await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
         else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["poke"]={"index":0,"id":0}
-            load_dict[usrqq]["setu1"]={"index":0,"id":0}
-            load_dict[usrqq]["setu2"]={"index":0,"id":0}
-            load_dict[usrqq]["haogan"]={"index":0,"id":0}
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict,f)
-        if(load_dict[usrqq]["data"]<0):
-            return
-        if random.random() < 0.3:
-            rst = ""
-            if random.random() < 0.15:
-                rst = "气死我了！"
-            await poke_.finish(rst + random.choice(poke__reply), at_sender=True)
-        rand = random.random()
-        if rand < 0.2:
-            voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
-            result = MessageSegment("record",{
-                "file":"file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1/"+voice})
-            text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
-            text.sort()
-            index = voice.split('.')[0]
-            await poke_.send(result)
-            await poke_.send(text[int(index)-1].split("_")[1])
-        elif rand > 0.7:
-            img = "file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/pa/" + str(random.randint(0,46)) + ".jpg"
-            await poke_.send(MessageSegment("image",{"file" : img}))
-        else :
-            await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
-        await add_withdraw_job(bot,usrqq,load_dict[usrqq]["poke"]["id"],"poke")
+            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+                load_dict = json.load(f)
+            if usrqq in load_dict :
+                if(load_dict[usrqq]["data"]<0):
+                    return
+                load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
+                load_dict[usrqq]["index"]+=1
+                load_dict[usrqq]["id"]+=1
+                id=load_dict[usrqq]["id"]
+            else:
+                load_dict[usrqq]={}
+                load_dict[usrqq]["index"]=0
+                load_dict[usrqq]["id"]=0
+                load_dict[usrqq]["data"] = 60
+                load_dict[usrqq]["mark"] = 1
+            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+                json.dump(load_dict,f)
+            if random.random() < 0.3:
+                rst = ""
+                if random.random() < 0.15:
+                    rst = "气死我了！"
+                await poke_.finish(rst + random.choice(poke__reply), at_sender=True)
+            rand = random.random()
+            if rand < 0.2:
+                voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
+                result = MessageSegment("record",{
+                    "file":"file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1/"+voice})
+                text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
+                text.sort()
+                index = voice.split('.')[0]
+                await poke_.send(result)
+                await poke_.send(text[int(index)-1].split("_")[1])
+            elif rand > 0.7:
+                img = "file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/pa/" + str(random.randint(0,46)) + ".jpg"
+                await poke_.send(MessageSegment("image",{"file" : img}))
+            else :
+                await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
+            await asyncio.sleep(1800)
+            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+                load_dict = json.load(f)
+            try:
+                if load_dict[usrqq]["id"] != id:
+                    return
+                load_dict[usrqq]["index"] = 0
+                load_dict[usrqq]["id"] = 0
+            except:
+                load_dict[usrqq]["index"] = 0
+                load_dict[usrqq]["id"] = 0
+            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+                json.dump(load_dict,f)
 
 

@@ -16,30 +16,27 @@ async def handle_first_receive(event:Union[GroupMessageEvent,PrivateMessageEvent
         state["city"] = args # 如果用户发送了参数则直接赋值
 @weather.got('city', prompt="你想查询哪个校区的天气呢？（玉泉路/雁栖湖）")
 async def handle_city(bot: Bot,
-                   event: GroupMessageEvent,
+                   event:Union[GroupMessageEvent,PrivateMessageEvent],
                    city_name: Message = Arg("city")):
-    usrqq=event.get_user_id()
+    usrqq = event.get_user_id()
     with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
         load_dict = json.load(f)
-        if usrqq not in load_dict :
-            load_dict[usrqq]={}
-            load_dict[usrqq]["poke"]={"index":0,"id":0}
-            load_dict[usrqq]["setu1"]={"index":0,"id":0}
-            load_dict[usrqq]["setu2"]={"index":0,"id":0}
-            load_dict[usrqq]["haogan"]={"index":0,"id":0}
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-            data = 60
-            mark=1
-        else:
+        if usrqq in load_dict :
             if load_dict[usrqq]["mark"]==1:
                 if load_dict[usrqq]["data"]>50:
                     load_dict[usrqq]["data"]=100
                 else:
                     load_dict[usrqq]["data"]+=50 
                 load_dict[usrqq]["mark"]=0
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict,f)
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     city_name = str(city_name)
     if city_name not in ["玉泉路", "雁栖湖"]:
         await weather.finish("格式不对啦！请输入玉泉路/雁栖湖")

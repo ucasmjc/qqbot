@@ -8,6 +8,25 @@ from typing import Union
 q=on_command("Q ",priority=5)
 @q.handle()
 async def get_Q(bot: Bot, event:GroupMessageEvent,args: Message = CommandArg()):
+    usrqq = event.get_user_id()
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
+        load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["mark"]==1:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     args = args.extract_plain_text()
     if not args:
         return
@@ -22,6 +41,32 @@ async def get_Q(bot: Bot, event:GroupMessageEvent,args: Message = CommandArg()):
 a=on_regex("A\d+\s", flags=re.I)
 @a.handle()
 async def get_A(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
+    usrqq = event.get_user_id()
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
+        load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["data"]<0:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+            else:
+                if load_dict[usrqq]["mark"]==1:
+                    if load_dict[usrqq]["data"]>50:
+                        load_dict[usrqq]["data"]=100
+                    else:
+                        load_dict[usrqq]["data"]+=50 
+                    load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     id = event.get_user_id()
     args=str(event.get_message())
     arg=re.search("A\d+\s",args)
@@ -40,25 +85,7 @@ async def get_A(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
         answer={"answer":answerdata,"id":id}
         load_dict[index]["answer"].append(answer)
         load_dict[index]["length"]+=1
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-            load_dict1 = json.load(f)
-        if id not in load_dict1 :
-            load_dict1[id]={}
-            load_dict1[id]["poke"]={"index":0,"id":0}
-            load_dict1[id]["setu1"]={"index":0,"id":0}
-            load_dict1[id]["setu2"]={"index":0,"id":0}
-            load_dict1[id]["haogan"]={"index":0,"id":0}
-            load_dict1[id]["data"] = 60
-            load_dict1[id]["mark"] = 1
-            data = 60
-            mark=1
-        else:
-                if load_dict1[id]["data"]>50:
-                    load_dict1[id]["data"]=100
-                else:
-                    load_dict1[id]["data"]+=50 
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict1,f)
+
         with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","w") as f:
             json.dump(load_dict,f)         
         await a.finish("该回答已收录至Q"+str(index))
@@ -66,11 +93,30 @@ async def get_A(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
 qa_list=on_fullmatch("问题列表")
 @qa_list.handle()
 async def get_list(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    usrqq = event.get_user_id()
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
         load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["mark"]==1:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+        load_dict1 = json.load(f)
     text="该功能建议私聊获取，避免刷屏~\n"
-    for i in range(1,load_dict["index"]):
-        q=load_dict[str(i)]
+    for i in range(1,load_dict1["index"]):
+        q=load_dict1[str(i)]
         if q["length"]==0:
             state="（尚无回答）"
         else:
@@ -81,6 +127,25 @@ async def get_list(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent
 a_search=on_regex("查询Q\d*\s?A\d*",priority=4)
 @a_search.handle()
 async def search_a(bot: Bot, event:Union[PrivateMessageEvent, GroupMessageEvent]):
+    usrqq = event.get_user_id()
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
+        load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["mark"]==1:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     args=str(event.get_message())
     arg=re.search("查询Q\d*",args)
     q_index=re.search("\d+",arg[0])[0]
@@ -101,6 +166,24 @@ async def search_a(bot: Bot, event:Union[PrivateMessageEvent, GroupMessageEvent]
 qa_search=on_regex("查询Q\d+",priority=5)
 @qa_search.handle()
 async def search(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
+    usrqq = event.get_user_id()
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:    
+        load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["mark"]==1:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     args=str(event.get_message())
     arg=re.search("查询Q\d+",args)
     index=re.search("\d+",arg[0])[0]
@@ -120,7 +203,25 @@ async def search(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent])
 qa_delete=on_regex("删除Q\d*\s?A\d*",priority=5,permission=GROUP_ADMIN)
 @qa_delete.handle()
 async def delete(event:GroupMessageEvent):
-    usrqq=event.get_user_id()
+    usrqq = event.get_user_id()
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
+        load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["mark"]==1:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     _, group_id, user_id = event.get_session_id().split("_")
     list=["2496767825","1532691970","676759737"]
     if (usrqq not in list)&(group_id!="712646893"):

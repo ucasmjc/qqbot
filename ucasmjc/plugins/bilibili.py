@@ -13,28 +13,25 @@ headers = {
 analysis_bili = on_regex(r"(b23.tv)|(bilibili.com/video)|(^BV([a-zA-Z0-9])+)", flags=re.I)
 @analysis_bili.handle()
 async def analysis_main(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
-    usrqq=event.get_user_id()
+    usrqq = event.get_user_id()
     with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        
         load_dict = json.load(f)
-        if usrqq not in load_dict :
-            load_dict[usrqq]={}
-            load_dict[usrqq]["poke"]={"index":0,"id":0}
-            load_dict[usrqq]["setu1"]={"index":0,"id":0}
-            load_dict[usrqq]["setu2"]={"index":0,"id":0}
-            load_dict[usrqq]["haogan"]={"index":0,"id":0}
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-            data = 60
-            mark=1
-        else:
+        if usrqq in load_dict :
             if load_dict[usrqq]["mark"]==1:
                 if load_dict[usrqq]["data"]>50:
                     load_dict[usrqq]["data"]=100
                 else:
                     load_dict[usrqq]["data"]+=50 
                 load_dict[usrqq]["mark"]=0
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict,f)
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+        json.dump(load_dict,f)
     text = str(event.get_message()).strip()
     if re.search(r"^BV([a-zA-Z0-9])+", text, re.I):
         text = r'https://www.bilibili.com/video/' + text

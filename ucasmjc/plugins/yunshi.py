@@ -4,7 +4,8 @@ import  requests
 import requests.adapters  
 import random
 import json
-
+import asyncio
+from nonebot.log import logger
 from sqlalchemy import false, true
 fuqian = on_fullmatch("运势 公屏",  priority=5)
 @fuqian.handle()
@@ -14,12 +15,12 @@ async def fuqian_use(bot: Bot, event: GroupMessageEvent):
     with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
         load_dict = json.load(f)
         if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
+            if(load_dict[usrqq]["data"]<0):
+                return
+            load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
+            load_dict[usrqq]["index"]+=1
+            load_dict[usrqq]["id"]+=1
+            id=load_dict[usrqq]["id"]
         else:
             load_dict[usrqq]={}
             load_dict[usrqq]["index"]=0
@@ -28,8 +29,6 @@ async def fuqian_use(bot: Bot, event: GroupMessageEvent):
             load_dict[usrqq]["mark"] = 1
     with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
         json.dump(load_dict,f)
-    if(load_dict[usrqq]["data"]<0):
-        return
     url = 'https://api.fanlisky.cn/api/qr-fortune/get/'+str(usrqq)
     res = requests.get(url)
     content_a = res.json()['data']['fortuneSummary']
@@ -44,6 +43,20 @@ async def fuqian_use(bot: Bot, event: GroupMessageEvent):
                 "text":msg
             })]
     )
+    logger.info(f'添加定时任务，间隔：10秒')
+    await asyncio.sleep(1800)
+    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        load_dict = json.load(f)
+        try:
+            if load_dict[usrqq]["id"] != id:
+                return
+            load_dict[usrqq]["index"] = 0
+            load_dict[usrqq]["id"] = 0
+        except:
+            load_dict[usrqq]["index"] = 0
+            load_dict[usrqq]["id"] = 0
+        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+            json.dump(load_dict,f)
 fuqian1 = on_fullmatch("运势",  priority=5)
 @fuqian1.handle()
 async def fuqian_use(bot: Bot, event: PrivateMessageEvent):

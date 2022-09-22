@@ -1,5 +1,5 @@
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 import os
 import sqlite3
 import pathlib

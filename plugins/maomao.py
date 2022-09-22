@@ -4,7 +4,7 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import requests
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 maomao = on_fullmatch("猫猫",priority=5)
 @maomao.handle()
 async def maoamao_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

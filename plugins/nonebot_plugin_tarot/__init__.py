@@ -1,6 +1,6 @@
 import asyncio
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from platform import node
 from nonebot import logger, on_command, on_regex,on_fullmatch
 from nonebot.permission import SUPERUSER

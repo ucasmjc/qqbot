@@ -3,7 +3,7 @@ from typing import Union
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 http1= on_fullmatch("sep",  priority=5)
 @http1.handle()
 async def http1_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

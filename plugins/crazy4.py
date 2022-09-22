@@ -10,7 +10,7 @@ try:
     import ujson as json
 except ModuleNotFoundError:
     import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from requests_html import HTMLSession
 
 CRAZY_PATH = os.path.join(os.path.dirname(__file__), 'source')

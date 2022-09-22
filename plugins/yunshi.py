@@ -4,7 +4,7 @@ import  requests
 import requests.adapters  
 import random
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 import asyncio
 from nonebot.log import logger
 from sqlalchemy import false, true

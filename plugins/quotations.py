@@ -4,7 +4,7 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent, GroupMessageEvent,PrivateMessageEvent
 from nonebot.typing import T_State
 import requests,json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 
 __zx_plugin_name__ = "一言二次元语录"
 __plugin_usage__ = """

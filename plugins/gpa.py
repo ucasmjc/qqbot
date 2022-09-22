@@ -2,7 +2,7 @@ from typing import Union
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN,hgupdate
+from plugins.util import SOURCELOAD,HAOGAN,hgupdate
 gpa = on_fullmatch("gpa",priority=5)
 @gpa.handle()
 async def gpa_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

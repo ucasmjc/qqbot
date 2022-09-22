@@ -2,7 +2,7 @@ from typing import Union
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 FAQ = on_fullmatch("FAQ",priority=5)
 @FAQ.handle()
 async def FAQ_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

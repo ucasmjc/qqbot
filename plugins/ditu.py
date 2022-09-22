@@ -3,10 +3,10 @@ from typing import Union
 from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,SOURCELOAD
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,SOURCELOAD
 
 from sqlalchemy import true
-from ucasmjc.plugins.util import SOURCELOAD,init
+from plugins.util import SOURCELOAD,init
 ditu = on_fullmatch("地图", priority=5)
 @ditu.handle()
 async def ditu_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

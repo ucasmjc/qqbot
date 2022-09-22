@@ -9,7 +9,7 @@ try:
     import ujson as json
 except ModuleNotFoundError:
     import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 
 class Tarot:
     def __init__(self):

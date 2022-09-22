@@ -4,7 +4,7 @@ from typing import Union
 import emoji
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot import logger, on_regex
 from nonebot.params import RegexDict
 from nonebot.adapters.onebot.v11 import MessageSegment

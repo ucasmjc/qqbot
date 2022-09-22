@@ -1,6 +1,6 @@
 import base64
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from io import BytesIO
 
 from httpx import AsyncClient, ConnectTimeout

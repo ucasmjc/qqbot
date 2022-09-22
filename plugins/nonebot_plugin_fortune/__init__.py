@@ -8,7 +8,7 @@ from .data_source import fortune_manager
 from .utils import MainThemeList
 import re
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 __fortune_vsrsion__ = "v0.4.3"
 plugin_notes = f'''
 今日运势 

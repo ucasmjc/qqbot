@@ -7,7 +7,7 @@ import os
 
 from yaml import load
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 __zx_plugin_name__ = "戳一戳"
 
 __plugin_usage__ = """

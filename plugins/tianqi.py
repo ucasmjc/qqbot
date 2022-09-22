@@ -1,7 +1,7 @@
 from typing import Union
 import requests,json
 import re
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot.params import CommandArg
 from nonebot.params import State, ArgPlainText, Arg, CommandArg
 from nonebot.plugin import on_command, on_message

@@ -1,7 +1,7 @@
 from typing import Union
 from nonebot import on_fullmatch
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 shitang = on_fullmatch("食堂", priority=5)
 @shitang.handle()

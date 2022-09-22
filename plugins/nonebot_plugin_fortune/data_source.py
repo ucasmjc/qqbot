@@ -10,7 +10,7 @@ try:
     import ujson as json
 except ModuleNotFoundError:
     import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 import os
 from .config import FORTUNE_PATH
 from .utils import drawing, MainThemeList, MainThemeEnable

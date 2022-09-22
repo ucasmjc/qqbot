@@ -2,7 +2,7 @@ from pyexpat.errors import XML_ERROR_FINISHED
 from typing import Union
 from nonebot import on_fullmatch
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 xinpin = on_fullmatch("文创新品",priority=5)
 @xinpin.handle()

@@ -2,11 +2,11 @@ from typing import Union
 from nonebot import  on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 import asyncio
 from sqlalchemy import true
 from yaml import load
-from ucasmjc.plugins.util import SOURCELOAD,init
+from plugins.util import SOURCELOAD,init
 haogan = on_fullmatch("好感度", priority=5)
 @haogan.handle()
 async def get_data(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

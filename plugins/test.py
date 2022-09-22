@@ -1,6 +1,6 @@
 import asyncio
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget, requests
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget, requests
 from typing import Union
 from numpy import imag
 from nonebot import on_fullmatch

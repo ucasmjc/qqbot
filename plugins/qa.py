@@ -2,7 +2,7 @@ import re
 from nonebot import on_command, on_fullmatch, on_regex
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,Message,PrivateMessageEvent,GROUP_ADMIN
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, QA,hgupdate
+from plugins.util import SOURCELOAD,HAOGAN, QA,hgupdate
 from nonebot.params import CommandArg
 from typing import Union
 q=on_command("Q ",priority=5)

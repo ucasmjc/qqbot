@@ -3,10 +3,10 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import random
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 
 from yaml import load
-from ucasmjc.plugins.util import SOURCELOAD,init
+from plugins.util import SOURCELOAD,init
 import asyncio
 from nonebot.log import logger
 setu = on_fullmatch("美少女", priority=5)

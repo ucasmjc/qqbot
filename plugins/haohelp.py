@@ -3,7 +3,7 @@ from nonebot.rule import to_me
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 from typing import Union
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 haohelp = on_fullmatch("好感度帮助", priority=5)
 @haohelp.handle()
 async def haohelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

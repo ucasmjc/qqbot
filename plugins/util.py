@@ -4,9 +4,9 @@ from nonebot import on_regex
 import os
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment
 import requests
-SOURCELOAD=os.getcwd()+"source/"
-HAOGAN = os.getcwd()+"haogan.json"
-QA=os.getcwd()+"qa.json"
+SOURCELOAD=os.getcwd()+"/plugins/source/"
+HAOGAN = os.getcwd()+"/plugins/haogan.json"
+QA=os.getcwd()+"/plugins/qa.json"
 headers = {
     "User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'
     }

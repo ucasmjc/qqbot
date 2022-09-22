@@ -3,7 +3,7 @@ from nonebot import on_fullmatch
 from nonebot.rule import to_me
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
-from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
+from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 help = on_fullmatch("help",rule = to_me(), priority=5)
 @help.handle()
 async def help_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):

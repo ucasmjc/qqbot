@@ -1,11 +1,12 @@
 import json
 import re
 from nonebot import on_regex
+import os
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment
 import requests
-SOURCESOURCELOAD="C:/Users/Administrator/Desktop/ucasmjc/ucasmjc/ucasmjc/plugins/source/"
-HAOGAN = "C:/Users/Administrator/Desktop/ucasmjc/ucasmjc/ucasmjc/plugins/haogan.json"
-QA="C:/Users/Administrator/Desktop/ucasmjc/ucasmjc/ucasmjc/plugins/qa.json"
+SOURCELOAD=os.getcwd()+"source/"
+HAOGAN = os.getcwd()+"haogan.json"
+QA=os.getcwd()+"qa.json"
 headers = {
     "User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'
     }

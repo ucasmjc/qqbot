@@ -4,7 +4,7 @@
 1. 需要先安装两个包
 ~~~c
 pip install nonebot2
-pip install nonebot_adapter_onebot-2.1.3
+pip install nonebot_adapter_onebot
 ~~~  
 其余需要的包可根据报错信息自行安装
 2. 部署[cqhttp](https://github.com/Mrs4s/go-cqhttp)，一步一步做就行  

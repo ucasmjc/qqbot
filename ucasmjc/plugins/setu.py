@@ -3,10 +3,10 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import random
 import json
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 
 from yaml import load
-from ucasmjc.plugins.util import init
-from ucasmjc.plugins.withdraw import add_withdraw_job
+from ucasmjc.plugins.util import SOURCELOAD,init
 import asyncio
 from nonebot.log import logger
 setu = on_fullmatch("美少女", priority=5)
@@ -23,4 +23,4 @@ async def setu_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
     if ('r18' in args)|('R18' in args):
         await setu.finish('不可以色色！')
     tu=random.randint(1,386)
-    await setu.send(MessageSegment("image",{"file": 'file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1萌图/%s.jpg'%tu}))
+    await setu.send(MessageSegment("image",{"file": 'file:///'+SOURCELOAD+'1萌图/%s.jpg'%tu}))

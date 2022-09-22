@@ -1,40 +1,23 @@
 import re
-from textwrap import indent
-from nonebot import on_command, on_fullmatch, on_regex, on_startswith
+from nonebot import on_command, on_fullmatch, on_regex
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,Message,PrivateMessageEvent,GROUP_ADMIN
 import json
-from nonebot.params import State, ArgPlainText, Arg, CommandArg
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, QA,hgupdate
+from nonebot.params import CommandArg
 from typing import Union
 q=on_command("Q ",priority=5)
 @q.handle()
 async def get_Q(bot: Bot, event:GroupMessageEvent,args: Message = CommandArg()):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     args = args.extract_plain_text()
     if not args:
         return
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    with open(QA,"r+",encoding='utf-8') as f:
             load_dict = json.load(f)
             index=load_dict["index"]
             load_dict["index"]+=1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","w") as f:
+    with open(QA,"w") as f:
         load_dict[index]={"index":index,"question":args,"answer":[],"length":0}
         json.dump(load_dict,f)
         await q.finish("该问题已收录~，编号为Q"+str(index))
@@ -42,7 +25,7 @@ a=on_regex("A\d+\s", flags=re.I)
 @a.handle()
 async def get_A(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+    with open(HAOGAN,"r+") as f:
         
         load_dict = json.load(f)
         if usrqq in load_dict :
@@ -65,28 +48,28 @@ async def get_A(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
             load_dict[usrqq]["id"]=0
             load_dict[usrqq]["data"] = 60
             load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+    with open(HAOGAN,"w") as f:
         json.dump(load_dict,f)
     id = event.get_user_id()
     args=str(event.get_message())
     arg=re.search("A\d+\s",args)
     index=re.search("\d+",arg[0])[0]
     answerdata=re.sub("A\d+\s","",args)
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    with open(QA,"r+",encoding='utf-8') as f:
         load_dict = json.load(f)
         if int(index)>=load_dict["index"]:
             await a.finish("还没有这个编号的问题哦")
         for i in load_dict[index]["answer"]:
             if i["id"]==id:
                 i["answer"]=answerdata
-                with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","w") as f:
+                with open(QA,"w") as f:
                     json.dump(load_dict,f)
                     await a.finish("您在Q"+str(index)+"的回答已更新")
         answer={"answer":answerdata,"id":id}
         load_dict[index]["answer"].append(answer)
         load_dict[index]["length"]+=1
 
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","w") as f:
+        with open(QA,"w") as f:
             json.dump(load_dict,f)         
         await a.finish("该回答已收录至Q"+str(index))
 
@@ -94,25 +77,8 @@ qa_list=on_fullmatch("问题列表")
 @qa_list.handle()
 async def get_list(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    hgupdate(usrqq)
+    with open(QA,"r+",encoding='utf-8') as f:
         load_dict1 = json.load(f)
     text="该功能建议私聊获取，避免刷屏~\n"
     for i in range(1,load_dict1["index"]):
@@ -128,30 +94,13 @@ a_search=on_regex("查询Q\d*\s?A\d*",priority=4)
 @a_search.handle()
 async def search_a(bot: Bot, event:Union[PrivateMessageEvent, GroupMessageEvent]):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     args=str(event.get_message())
     arg=re.search("查询Q\d*",args)
     q_index=re.search("\d+",arg[0])[0]
     arg=re.search("A\d*",args)
     a_index=re.search("\d+",arg[0])[0]
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    with open(QA,"r+",encoding='utf-8') as f:
         load_dict = json.load(f)
         j=1
         length=load_dict[q_index]["length"]
@@ -167,27 +116,11 @@ qa_search=on_regex("查询Q\d+",priority=5)
 @qa_search.handle()
 async def search(bot: Bot, event: Union[PrivateMessageEvent, GroupMessageEvent]):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:    
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     args=str(event.get_message())
     arg=re.search("查询Q\d+",args)
     index=re.search("\d+",arg[0])[0]
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    with open(QA,"r+",encoding='utf-8') as f:
         load_dict = json.load(f)
     length=load_dict[index]["length"]
     if length==0:
@@ -204,24 +137,7 @@ qa_delete=on_regex("删除Q\d*\s?A\d*",priority=5,permission=GROUP_ADMIN)
 @qa_delete.handle()
 async def delete(event:GroupMessageEvent):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     _, group_id, user_id = event.get_session_id().split("_")
     list=["2496767825","1532691970","676759737"]
     if (usrqq not in list)&(group_id!="712646893"):
@@ -231,12 +147,12 @@ async def delete(event:GroupMessageEvent):
     q_index=re.search("\d+",arg[0])[0]
     arg=re.search("A\d*",args)
     a_index=re.search("\d+",arg[0])[0]
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","r+",encoding='utf-8') as f:
+    with open(QA,"r+",encoding='utf-8') as f:
         load_dict = json.load(f)
     if load_dict[q_index]["length"]>=int(a_index):
         del load_dict[q_index]["answer"][int(a_index)-1]
         load_dict[q_index]["length"]-=1
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/qa.json","w") as f:
+        with open(QA,"w") as f:
             json.dump(load_dict,f)    
         await qa_delete.finish("Q"+q_index+"中的第"+a_index+"条回答已被删除")
     else:

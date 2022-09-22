@@ -4,7 +4,7 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent, GroupMessageEvent,PrivateMessageEvent
 from nonebot.typing import T_State
 import requests,json
-
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 
 __zx_plugin_name__ = "一言二次元语录"
 __plugin_usage__ = """
@@ -32,46 +32,28 @@ url = "https://international.v1.hitokoto.cn/?c=a"
 
 @quotations.handle()
 async def _(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent], state: T_State):
-    try:
-        _, group_id, user_id = event.get_session_id().split("_")
-        if group_id!="712646893":
-            mark=1
-        else:
-            mark=0
-    except:
-        mark=0
-    if (event.get_event_name()=="message.private.friend")|(mark==1):
-        data = requests.get(url,timeout=5).json()
-        result = f'{data["hitokoto"]}\t——{data["from"]}'
-        await quotations.send(result)
-    else:    
-        usrqq = event.get_user_id()
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-            load_dict = json.load(f)
-            if usrqq in load_dict :
-                if(load_dict[usrqq]["data"]<0):
-                    return
-                load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
-                load_dict[usrqq]["index"]+=1
-                load_dict[usrqq]["id"]+=1
-                id=load_dict[usrqq]["id"]
+        try:
+            _, group_id, user_id = event.get_session_id().split("_")
+            if group_id!="712646893":
+                mark=1
             else:
-                load_dict[usrqq]={}
-                load_dict[usrqq]["index"]=0
-                load_dict[usrqq]["id"]=0
-                load_dict[usrqq]["data"] = 60
-                load_dict[usrqq]["mark"] = 1
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict,f)
+                mark=0
+        except:
+            mark=0
+        if (event.get_event_name()!="message.private.friend")&(mark==0):
+            usrqq = event.get_user_id()
+            [data,id]=hgdown(usrqq)
+            if data < 0:
+                return
         data = requests.get(url,timeout=10).json()
         result = f'{data["hitokoto"]}\t——{data["from"]}'
         await quotations.send(result)
         await asyncio.sleep(1800)
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        with open(HAOGAN,"r+") as f:
             load_dict = json.load(f)
             if load_dict[usrqq]["id"] != id:
                 return
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
-            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+            with open(HAOGAN,"w") as f:
                 json.dump(load_dict,f)

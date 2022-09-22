@@ -1,5 +1,6 @@
 import asyncio
-import json, requests
+import json
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget, requests
 from typing import Union
 from numpy import imag
 from nonebot import on_fullmatch
@@ -35,23 +36,9 @@ async def setu_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
         res = requests.get(url, params=params)
         await setu1.send(MessageSegment("image",{"file":res.url}))
     else:        
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-            load_dict = json.load(f)
-            if usrqq in load_dict :
-                if(load_dict[usrqq]["data"]<0):
-                    return
-                load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
-                load_dict[usrqq]["index"]+=1
-                load_dict[usrqq]["id"]+=1
-                id=load_dict[usrqq]["id"]
-            else:
-                load_dict[usrqq]={}
-                load_dict[usrqq]["index"]=0
-                load_dict[usrqq]["id"]=0
-                load_dict[usrqq]["data"] = 60
-                load_dict[usrqq]["mark"] = 1
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict,f)
+        [data,id]=hgdown(usrqq)
+        if data < 0:
+          return
         args = str(event.get_message()).strip()
         if ('r18' in args)|('R18' in args):
             await setu1.finish('不可以色色！')
@@ -64,12 +51,12 @@ async def setu_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
         await setu1.send(MessageSegment("image",{"file":res.url}))
         print(event.get_event_name())
         await asyncio.sleep(1800)
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        with open(HAOGAN,"r+") as f:
                 load_dict = json.load(f)
                 if load_dict[usrqq]["id"] != id:
                     return
                 load_dict[usrqq]["index"] = 0
                 load_dict[usrqq]["id"] = 0
-                with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+                with open(HAOGAN,"w") as f:
                     json.dump(load_dict,f)
 

@@ -1,6 +1,7 @@
 from typing import Union
 from nonebot import on_fullmatch
 import json
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 shitang = on_fullmatch("食堂", priority=5)
 @shitang.handle()
@@ -13,25 +14,8 @@ async def shitang_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEven
     except:
         usrqq=event.get_user_id()
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     await shitang.send(MessageSegment("image",{
-                "file": 'file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/shitang.jpg'
+                "file": 'file:///'+SOURCELOAD+'shitang.jpg'
             })
 )

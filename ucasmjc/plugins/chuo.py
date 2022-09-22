@@ -6,10 +6,8 @@ from nonebot.adapters.onebot.v11 import Bot,MessageSegment
 import os
 
 from yaml import load
-
-from ucasmjc.plugins.util import init
-from ucasmjc.plugins.withdraw import add_withdraw_job
 import json
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 __zx_plugin_name__ = "戳一戳"
 
 __plugin_usage__ = """
@@ -69,35 +67,21 @@ async def poke_event(bot: Bot,event: PokeNotifyEvent):
             if rand < 0.2:
                 voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
                 result = MessageSegment("record",{
-                    "file":"file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1/"+voice})
+                    "file":"file:///'+SOURCELOAD+'source/1/"+voice})
                 text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
                 text.sort()
                 index = voice.split('.')[0]
                 await poke_.send(result)
                 await poke_.send(text[int(index)-1].split("_")[1])
             elif rand > 0.7:
-                img = "file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/pa/" + str(random.randint(0,46)) + ".jpg"
+                img = "file:///'+SOURCELOAD+'source/pa/" + str(random.randint(0,46)) + ".jpg"
                 await poke_.send(MessageSegment("image",{"file" : img}))
             else :
                 await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
         else:
-            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-                load_dict = json.load(f)
-            if usrqq in load_dict :
-                if(load_dict[usrqq]["data"]<0):
-                    return
-                load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
-                load_dict[usrqq]["index"]+=1
-                load_dict[usrqq]["id"]+=1
-                id=load_dict[usrqq]["id"]
-            else:
-                load_dict[usrqq]={}
-                load_dict[usrqq]["index"]=0
-                load_dict[usrqq]["id"]=0
-                load_dict[usrqq]["data"] = 60
-                load_dict[usrqq]["mark"] = 1
-            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-                json.dump(load_dict,f)
+            [data,id]=hgdown(usrqq)
+            if data==1:
+                return
             if random.random() < 0.3:
                 rst = ""
                 if random.random() < 0.15:
@@ -107,19 +91,19 @@ async def poke_event(bot: Bot,event: PokeNotifyEvent):
             if rand < 0.2:
                 voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
                 result = MessageSegment("record",{
-                    "file":"file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1/"+voice})
+                    "file":"file:///'+SOURCELOAD+'source/1/"+voice})
                 text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
                 text.sort()
                 index = voice.split('.')[0]
                 await poke_.send(result)
                 await poke_.send(text[int(index)-1].split("_")[1])
             elif rand > 0.7:
-                img = "file:///C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/pa/" + str(random.randint(0,46)) + ".jpg"
+                img = "file:///'+SOURCELOAD+'source/pa/" + str(random.randint(0,46)) + ".jpg"
                 await poke_.send(MessageSegment("image",{"file" : img}))
             else :
                 await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
             await asyncio.sleep(1800)
-            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+            with open(HAOGAN,"r+") as f:
                 load_dict = json.load(f)
             try:
                 if load_dict[usrqq]["id"] != id:
@@ -129,7 +113,7 @@ async def poke_event(bot: Bot,event: PokeNotifyEvent):
             except:
                 load_dict[usrqq]["index"] = 0
                 load_dict[usrqq]["id"] = 0
-            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+            with open(HAOGAN,"w") as f:
                 json.dump(load_dict,f)
 
 

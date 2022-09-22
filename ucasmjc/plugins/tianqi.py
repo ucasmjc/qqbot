@@ -1,8 +1,7 @@
 from typing import Union
 import requests,json
 import re
-from nonebot.internal.matcher import Matcher
-from nonebot.internal.params import ArgPlainText
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot.params import CommandArg
 from nonebot.params import State, ArgPlainText, Arg, CommandArg
 from nonebot.plugin import on_command, on_message
@@ -19,24 +18,7 @@ async def handle_city(bot: Bot,
                    event:Union[GroupMessageEvent,PrivateMessageEvent],
                    city_name: Message = Arg("city")):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     city_name = str(city_name)
     if city_name not in ["玉泉路", "雁栖湖"]:
         await weather.finish("格式不对啦！请输入玉泉路/雁栖湖")

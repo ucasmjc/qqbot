@@ -3,11 +3,14 @@ import re
 from nonebot import on_regex
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment
 import requests
+SOURCESOURCELOAD="C:/Users/Administrator/Desktop/ucasmjc/ucasmjc/ucasmjc/plugins/source/"
+HAOGAN = "C:/Users/Administrator/Desktop/ucasmjc/ucasmjc/ucasmjc/plugins/haogan.json"
+QA="C:/Users/Administrator/Desktop/ucasmjc/ucasmjc/ucasmjc/plugins/qa.json"
 headers = {
     "User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0'
     }
-async def init(usrqq,index,name):
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+def init(usrqq,index,name):
+    with open(HAOGAN,"r+") as f:
         load_dict = json.load(f)
         if usrqq in load_dict :
             load_dict[usrqq]["data"] -= load_dict[usrqq]["index"]
@@ -22,10 +25,57 @@ async def init(usrqq,index,name):
             load_dict[usrqq]["mark"] = 1
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+    with open(HAOGAN,"w") as f:
         json.dump(load_dict,f)
         return load_dict[usrqq]["id"]
-async def BV(bili):
+def hgupdate(usrqq):
+    with open(HAOGAN,"r+") as f:
+        load_dict = json.load(f)
+        if usrqq in load_dict :
+            if load_dict[usrqq]["mark"]==1:
+                if load_dict[usrqq]["data"]>50:
+                    load_dict[usrqq]["data"]=100
+                else:
+                    load_dict[usrqq]["data"]+=50 
+                load_dict[usrqq]["mark"]=0
+        else:
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+    with open(HAOGAN,"w") as f:
+        json.dump(load_dict,f)
+def hgget(usrqq):
+    with open(HAOGAN,"r+") as f:
+        load_dict = json.load(f)
+        if usrqq not in load_dict :
+            load_dict[usrqq]={}
+            load_dict[usrqq]["index"]=0
+            load_dict[usrqq]["id"]=0
+            load_dict[usrqq]["data"] = 60
+            load_dict[usrqq]["mark"] = 1
+        return load_dict[usrqq]["data"]
+def hgdown(usrqq):
+    with open(HAOGAN,"r+") as f:
+            load_dict = json.load(f)
+            if usrqq in load_dict :
+                if(load_dict[usrqq]["data"]<0):
+                    return [load_dict[usrqq]["data"],0]
+                load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
+                load_dict[usrqq]["index"]+=1
+                load_dict[usrqq]["id"]+=1
+                id=load_dict[usrqq]["id"]
+            else:
+                load_dict[usrqq]={}
+                load_dict[usrqq]["index"]=0
+                load_dict[usrqq]["id"]=0
+                load_dict[usrqq]["data"] = 60
+                load_dict[usrqq]["mark"] = 1
+    with open(HAOGAN,"w") as f:
+        json.dump(load_dict,f)
+    return [load_dict[usrqq]["data"], id]
+def BV(bili):
     text = str(bili)
     if re.search(r"^BV([a-zA-Z0-9])+", text, re.I):
         text = r'https://www.bilibili.com/video/' + text

@@ -10,6 +10,7 @@ try:
     import ujson as json
 except ModuleNotFoundError:
     import json
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from requests_html import HTMLSession
 
 CRAZY_PATH = os.path.join(os.path.dirname(__file__), 'source')
@@ -33,23 +34,9 @@ async def crazy4(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
         text=choice(kfc)
         await crazy.send(MessageSegment("text", {"text": text}))
     else:
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-            load_dict = json.load(f)
-            if usrqq in load_dict :
-                if(load_dict[usrqq]["data"]<0):
-                    return
-                load_dict[usrqq]["data"]-=load_dict["a"][int(load_dict[usrqq]["index"])]
-                load_dict[usrqq]["index"]+=1
-                load_dict[usrqq]["id"]+=1
-                id=load_dict[usrqq]["id"]
-            else:
-                load_dict[usrqq]={}
-                load_dict[usrqq]["index"]=0
-                load_dict[usrqq]["id"]=0
-                load_dict[usrqq]["data"] = 60
-                load_dict[usrqq]["mark"] = 1
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-            json.dump(load_dict,f)
+        [data,id]=hgdown(usrqq)
+        if data < 0:
+          return
         session = HTMLSession()
         '''data = session.get("https://kfc-crazy-thursday.vercel.app/api/index")'''
         path = Path(CRAZY_PATH) / 'post.json'
@@ -58,11 +45,11 @@ async def crazy4(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
         text=choice(kfc)
         await crazy.send(MessageSegment("text", {"text": text}))
         await asyncio.sleep(1800)
-        with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
+        with open(HAOGAN,"r+") as f:
             load_dict = json.load(f)
             if load_dict[usrqq]["id"] != id:
                 return
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
-            with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
+            with open(HAOGAN,"w") as f:
                 json.dump(load_dict,f)

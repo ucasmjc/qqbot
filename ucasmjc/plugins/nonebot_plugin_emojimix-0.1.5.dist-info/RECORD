@@ -1,0 +1,14 @@
+nonebot_plugin_emojimix-0.1.5.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+nonebot_plugin_emojimix-0.1.5.dist-info/LICENSE,sha256=MB9kjv_MMzk3mfQT1djd80kgH9jSNxiT7KyaGXg2IY4,1063
+nonebot_plugin_emojimix-0.1.5.dist-info/METADATA,sha256=sBgWyx61nboYV2cLCKC5CBIm4cmt_pKr-6ycTEjIWH0,1289
+nonebot_plugin_emojimix-0.1.5.dist-info/RECORD,,
+nonebot_plugin_emojimix-0.1.5.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+nonebot_plugin_emojimix-0.1.5.dist-info/WHEEL,sha256=y3eDiaFVSNTPbgzfNn0nYn5tEn1cX6WrdetDlQM4xWw,83
+nonebot_plugin_emojimix/__init__.py,sha256=quXflcyhfY5NbWOlbgoHIiOTNiWrlwkt_1ataVzg888,1024
+nonebot_plugin_emojimix/__pycache__/__init__.cpython-39.pyc,,
+nonebot_plugin_emojimix/__pycache__/config.cpython-39.pyc,,
+nonebot_plugin_emojimix/__pycache__/data_source.cpython-39.pyc,,
+nonebot_plugin_emojimix/__pycache__/emoji.cpython-39.pyc,,
+nonebot_plugin_emojimix/config.py,sha256=UVDKguDEr-xC8OL-i_9qBdXXCsclhYlFtAmC3gB6YP0,150
+nonebot_plugin_emojimix/data_source.py,sha256=IOcvSQ0D9zNA_Q7J_oFBreIIWXkUMD0rTeJ08UHn_Oc,1721
+nonebot_plugin_emojimix/emoji.py,sha256=XDn4gQFupjI63UTCdnPRRjxhbEkr2yHRTZ6LR0_bo-Y,16257

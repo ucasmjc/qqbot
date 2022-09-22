@@ -4,6 +4,7 @@ from nonebot import on_regex
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import requests
 import json
+from ucasmjc.plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 
 from yaml import load
 headers = {
@@ -14,24 +15,7 @@ analysis_bili = on_regex(r"(b23.tv)|(bilibili.com/video)|(^BV([a-zA-Z0-9])+)", f
 @analysis_bili.handle()
 async def analysis_main(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq = event.get_user_id()
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
-        
-        load_dict = json.load(f)
-        if usrqq in load_dict :
-            if load_dict[usrqq]["mark"]==1:
-                if load_dict[usrqq]["data"]>50:
-                    load_dict[usrqq]["data"]=100
-                else:
-                    load_dict[usrqq]["data"]+=50 
-                load_dict[usrqq]["mark"]=0
-        else:
-            load_dict[usrqq]={}
-            load_dict[usrqq]["index"]=0
-            load_dict[usrqq]["id"]=0
-            load_dict[usrqq]["data"] = 60
-            load_dict[usrqq]["mark"] = 1
-    with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:
-        json.dump(load_dict,f)
+    hgupdate(usrqq)
     text = str(event.get_message()).strip()
     if re.search(r"^BV([a-zA-Z0-9])+", text, re.I):
         text = r'https://www.bilibili.com/video/' + text

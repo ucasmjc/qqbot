@@ -35,42 +35,42 @@ async def BV1_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq=event.get_user_id()
     hgupdate(usrqq)
     messages = BV("BV1GK4y1V7yG")
-    BV1.send(messages)   
+    await BV1.send(messages)   
 BV2 = on_fullmatch("军训vlog", priority=5)
 @BV2.handle()
 async def BV2_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq=event.get_user_id()
     hgupdate(usrqq)
     messages = BV("BV1vU4y1H73G")
-    BV2.send(messages) 
+    await BV2.send(messages) 
 BV3 = on_fullmatch("迎新晚会", priority=5)
 @BV3.handle()
 async def BV3_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq=event.get_user_id()
     hgupdate(usrqq)
     messages = BV("BV13L4y1672F")
-    BV3.send(messages) 
+    await BV3.send(messages) 
 BV4 = on_fullmatch("音乐之夜", priority=5)
 @BV4.handle()
 async def BV4_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq=event.get_user_id()
     hgupdate(usrqq)
     messages = BV("BV1GS4y1X7fx")
-    BV4.send(messages) 
+    await BV4.send(messages) 
 BV5 = on_fullmatch("元旦晚会", priority=5)
 @BV5.handle()
 async def BV5_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq=event.get_user_id()
     hgupdate(usrqq)
     messages = BV("BV1cS4y1Q7JQ")
-    BV5.send(messages) 
+    await BV5.send(messages) 
 BV6 = on_fullmatch("社团文化节", priority=5)
 @BV6.handle()
 async def BV6_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq=event.get_user_id()
     hgupdate(usrqq)
     messages = BV("BV1BF411j7nh")
-    BV6.send(messages) 
+    await BV6.send(messages) 
 BV7 = on_fullmatch("FREE舞蹈节", priority=5)
 @BV7.handle()
 async def BV7_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
@@ -78,7 +78,7 @@ async def BV7_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     hgupdate(usrqq)
 
     messages = BV("BV16R4y1w7Cx")
-    BV7.send(messages) 
+    await BV7.send(messages) 
 BV8 = on_fullmatch("良品招新", priority=5)
 @BV8.handle()
 async def BV8_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
@@ -86,6 +86,6 @@ async def BV8_(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     hgupdate(usrqq)
 
     messages = BV("BV1gB4y157tJ")
-    BV7.send(messages) 
+    await BV7.send(messages) 
 
 

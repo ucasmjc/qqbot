@@ -8,7 +8,7 @@ shitang = on_fullmatch("食堂", priority=5)
 async def shitang_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     try:
         _, group_id, user_id = event.get_session_id().split("_")
-        if group_id!='647564271'&group_id!='712646893'&group_id!='712646893':
+        if group_id=="641302145":
             return
         usrqq=event.get_user_id()
     except:

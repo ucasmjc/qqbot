@@ -4,8 +4,6 @@ from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,PrivateMessageEvent
 import json
 from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,SOURCELOAD
-
-from sqlalchemy import true
 from plugins.util import SOURCELOAD,init
 ditu = on_fullmatch("地图", priority=5)
 @ditu.handle()

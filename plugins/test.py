@@ -53,8 +53,6 @@ async def setu_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
         await asyncio.sleep(1800)
         with open(HAOGAN,"r+") as f:
                 load_dict = json.load(f)
-                if load_dict[usrqq]["id"] != id:
-                    return
                 load_dict[usrqq]["index"] = 0
                 load_dict[usrqq]["id"] = 0
                 with open(HAOGAN,"w") as f:

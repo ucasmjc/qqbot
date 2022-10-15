@@ -4,8 +4,6 @@ from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,Pri
 import json
 from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 import asyncio
-from sqlalchemy import true
-from yaml import load
 from plugins.util import SOURCELOAD,init
 haogan = on_fullmatch("好感度", priority=5)
 @haogan.handle()
@@ -40,8 +38,6 @@ async def get_data(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
         await asyncio.sleep(1800)
         with open(HAOGAN,"r+") as f:
             load_dict = json.load(f)
-            if load_dict[usrqq]["id"] != id:
-                return
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
             with open(HAOGAN,"w") as f:

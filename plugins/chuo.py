@@ -51,6 +51,8 @@ async def poke_event(bot: Bot,event: PokeNotifyEvent):
         usrqq = event.get_user_id()
         try:
             _, group_id, user_id = event.get_session_id().split("_")
+            if group_id=="463275153":
+                return
             if group_id!="712646893":
                 mark=1
             else:
@@ -65,22 +67,24 @@ async def poke_event(bot: Bot,event: PokeNotifyEvent):
                 await poke_.finish(rst + random.choice(poke__reply), at_sender=True)
             rand = random.random()
             if rand < 0.2:
-                voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
+                voice = random.choice(os.listdir(SOURCELOAD+"1"))
                 result = MessageSegment("record",{
-                    "file":"file:///'+SOURCELOAD+'source/1/"+voice})
-                text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
+                    "file":"file:///"+SOURCELOAD+"1/"+voice})
+                text =os.listdir(SOURCELOAD+"dinggong")
                 text.sort()
                 index = voice.split('.')[0]
                 await poke_.send(result)
                 await poke_.send(text[int(index)-1].split("_")[1])
             elif rand > 0.7:
-                img = "file:///'+SOURCELOAD+'source/pa/" + str(random.randint(0,46)) + ".jpg"
+                img = "file:///"+SOURCELOAD+"pa/" + str(random.randint(0,46)) + ".jpg"
                 await poke_.send(MessageSegment("image",{"file" : img}))
             else :
                 await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
         else:
-            [data,id]=hgdown(usrqq)
-            if data==1:
+            [data,id]=[data,id]=hgdown(usrqq)
+            if data<0:
+                    return
+            if data<0:
                 return
             if random.random() < 0.3:
                 rst = ""
@@ -89,28 +93,22 @@ async def poke_event(bot: Bot,event: PokeNotifyEvent):
                 await poke_.finish(rst + random.choice(poke__reply), at_sender=True)
             rand = random.random()
             if rand < 0.2:
-                voice = random.choice(os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/1"))
+                voice = random.choice(os.listdir(SOURCELOAD+"1"))
                 result = MessageSegment("record",{
-                    "file":"file:///'+SOURCELOAD+'source/1/"+voice})
-                text =os.listdir("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/source/dinggong")
+                    "file":"file:///"+SOURCELOAD+"1/"+voice})
+                text =os.listdir(SOURCELOAD+"dinggong")
                 text.sort()
                 index = voice.split('.')[0]
                 await poke_.send(result)
                 await poke_.send(text[int(index)-1].split("_")[1])
             elif rand > 0.7:
-                img = "file:///'+SOURCELOAD+'source/pa/" + str(random.randint(0,46)) + ".jpg"
+                img = "file:///"+SOURCELOAD+"pa/" + str(random.randint(0,46)) + ".jpg"
                 await poke_.send(MessageSegment("image",{"file" : img}))
             else :
                 await poke_.send(MessageSegment("poke", {"qq": event.user_id}))
             await asyncio.sleep(1800)
             with open(HAOGAN,"r+") as f:
                 load_dict = json.load(f)
-            try:
-                if load_dict[usrqq]["id"] != id:
-                    return
-                load_dict[usrqq]["index"] = 0
-                load_dict[usrqq]["id"] = 0
-            except:
                 load_dict[usrqq]["index"] = 0
                 load_dict[usrqq]["id"] = 0
             with open(HAOGAN,"w") as f:

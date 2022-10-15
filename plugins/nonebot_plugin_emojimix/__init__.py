@@ -61,8 +61,7 @@ async def _(event:Union[PrivateMessageEvent,GroupMessageEvent],msg: dict = Regex
         await asyncio.sleep(1800)
         with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","r+") as f:
             load_dict = json.load(f)
-            if load_dict[usrqq]["id"] != id:
-                return
+            
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
             with open("C:/Users/24967/Desktop/ucasmjc/ucasmjc/plugins/haogan.json","w") as f:

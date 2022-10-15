@@ -4,11 +4,8 @@ from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,MessageSegment,Pri
 from typing import Union
 import json
 from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
-haohelp = on_fullmatch("好感度帮助", priority=5)
-@haohelp.handle()
-async def haohelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
-    daily_send = '好感度系统V2.0：\nPS:好感度系统仅在22官方群生效\n每个人的初始好感度为60，每日第一次使用臻果姬的非娱乐功能时，好感度会增长50点\n\n如果频繁使用娱乐功能，臻果姬（管理员）会生气哦\n当你在30分钟内第二次使用娱乐功能时，好感度会-40，第三次使用时，好感度会-80，第四次会-120……30分钟的计时会也随好感度减少而刷新（即重新计时）\n娱乐功能主要包括：运势，抽签，emoji合成，crazy4，猫猫，戳一戳，占卜，好感度查询……\n\n不同功能的计时是互通的哦\n发送“好感度”即可查询当前好感度,当好感度为负数时，可以私聊查询哦\n\n当你的好感度小于0，臻果姬将关闭对你的娱乐功能哦\n防止刷屏，保护臻果姬从现在做起~'
-    await haohelp.finish(daily_send)
+
+
 qahelp = on_fullmatch("QA帮助", priority=5)
 @qahelp.handle()
 async def qahelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
@@ -25,4 +22,9 @@ async def culturehelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessage
     hgupdate(usrqq)
     daily_send = '果壳的校园虽小，活动却不少，直接发送下列活动的名字获得相应视频，领略果壳的校园文化吧！\n草地音乐节\n军训vlog\n迎新晚会\n音乐之夜\n元旦晚会\n社团文化节\nFREE舞蹈节\n（下面是私货）\n美式霸凌\n果壳迷踪\n果壳良品设计集'
     await culturehelp.finish(daily_send)
-   
+haohelp = on_fullmatch("好感度帮助", priority=5)
+@haohelp.handle()
+async def culturehelp_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
+    usrqq = event.get_user_id()
+    daily_send = '好感度系统V3.0：\nPS:好感度系统仅在22官方群生效\n每个人的初始好感度为60，每日第一次使用臻果姬的非娱乐功能时，好感度会增长50点\n\n如果频繁使用娱乐功能，臻果姬（管理员）会生气哦\n当你在30分钟内第二次使用娱乐功能时，好感度会-10，第三次使用时，好感度会-20，第四次会-40……\n娱乐功能主要包括：运势，抽签，emoji合成，crazy4，猫猫，戳一戳，占卜，好感度查询……\n\n不同功能的指数是互通的哦\n发送“好感度”即可查询当前好感度,当好感度为负数时，可以私聊查询哦\n\n当你的好感度小于0，臻果姬将关闭对你的娱乐功能哦\n防止刷屏，保护臻果姬从现在做起~'
+    await haohelp.finish(daily_send)

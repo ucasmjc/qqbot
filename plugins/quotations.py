@@ -42,7 +42,7 @@ async def _(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent], state:
             mark=0
         if (event.get_event_name()!="message.private.friend")&(mark==0):
             usrqq = event.get_user_id()
-            [data,id]=hgdown(usrqq)
+            [data,id]=[data,id]=hgdown(usrqq)
             if data < 0:
                 return
         data = requests.get(url,timeout=10).json()
@@ -51,8 +51,6 @@ async def _(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent], state:
         await asyncio.sleep(1800)
         with open(HAOGAN,"r+") as f:
             load_dict = json.load(f)
-            if load_dict[usrqq]["id"] != id:
-                return
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
             with open(HAOGAN,"w") as f:

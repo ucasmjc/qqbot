@@ -22,7 +22,9 @@ async def daily_sentence(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageE
         await daily.send(daily_send[0])
         await daily.send(daily_send[1])
     else:   
-        [data,id]=hgdown(usrqq)
+        [data,id]=[data,id]=hgdown(usrqq)
+    if data<0:
+        return
         if data < 0:
           return
         daily_send = await get_daily()
@@ -31,8 +33,6 @@ async def daily_sentence(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageE
         await asyncio.sleep(1800)
         with open(HAOGAN,"r+") as f:
             load_dict = json.load(f)
-            if load_dict[usrqq]["id"] != id:
-                return
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
             with open(HAOGAN,"w") as f:

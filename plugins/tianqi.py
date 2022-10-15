@@ -3,7 +3,7 @@ import requests,json
 import re
 from plugins.util import SOURCELOAD,HAOGAN, hgdown,hgupdate,hgget
 from nonebot.params import CommandArg
-from nonebot.params import State, ArgPlainText, Arg, CommandArg
+from nonebot.params import Arg, CommandArg
 from nonebot.plugin import on_command, on_message
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent, GroupMessageEvent, Message,PrivateMessageEvent
 from nonebot.typing import T_State
@@ -11,6 +11,13 @@ weather = on_command("天气", priority=5)
 @weather.handle()
 async def handle_first_receive(event:Union[GroupMessageEvent,PrivateMessageEvent],state: T_State, args: Message = CommandArg()):
     args = args.extract_plain_text() # 首次发送命令时跟随的参数，例：/天气 上海，则args为上海
+    try:
+        _, group_id, user_id = event.get_session_id().split("_")
+        if group_id=='463275153':
+            state["city"] = "args"
+        usrqq=event.get_user_id()
+    except:
+        usrqq=event.get_user_id()
     if args:
         state["city"] = args # 如果用户发送了参数则直接赋值
 @weather.got('city', prompt="你想查询哪个校区的天气呢？（玉泉路/雁栖湖）")
@@ -20,6 +27,8 @@ async def handle_city(bot: Bot,
     usrqq = event.get_user_id()
     hgupdate(usrqq)
     city_name = str(city_name)
+    if city_name=="args":
+        return
     if city_name not in ["玉泉路", "雁栖湖"]:
         await weather.finish("格式不对啦！请输入玉泉路/雁栖湖")
     if city_name =='玉泉路':

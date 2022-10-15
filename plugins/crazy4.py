@@ -21,6 +21,8 @@ async def crazy4(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
     usrqq = event.get_user_id()
     try:
         _, group_id, user_id = event.get_session_id().split("_")
+        if group_id=="463275153" or group_id=="641302145":
+            return
         if group_id!="712646893":
             mark=1
         else:
@@ -47,8 +49,6 @@ async def crazy4(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent]):
         await asyncio.sleep(1800)
         with open(HAOGAN,"r+") as f:
             load_dict = json.load(f)
-            if load_dict[usrqq]["id"] != id:
-                return
             load_dict[usrqq]["index"] = 0
             load_dict[usrqq]["id"] = 0
             with open(HAOGAN,"w") as f:

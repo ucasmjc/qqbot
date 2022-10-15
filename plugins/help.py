@@ -14,3 +14,4 @@ async def help_use(bot: Bot, event:Union[GroupMessageEvent,PrivateMessageEvent])
                 "file": 'file:///'+SOURCELOAD+'help.jpg'
             }), MessageSegment("text",{"text":"臻果姬现在已开源，见https://github.com/ucasmjc/qqbot"})])
 
+
